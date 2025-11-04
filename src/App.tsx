@@ -1,12 +1,18 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { lazy, Suspense } from "react";
 import type { ReactNode } from "react";
+import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
+
+// Login은 초기 진입점이므로 즉시 로드
 import Login from "@/pages/Login";
-import PostList from "@/pages/PostList";
-import PostCreate from "@/pages/PostCreate";
-import PostDetail from "@/pages/PostDetail";
-import PostEdit from "@/pages/PostEdit";
-import Charts from "@/pages/Charts";
+
+// 나머지 페이지들은 Lazy Loading
+const PostList = lazy(() => import("@/pages/PostList"));
+const PostCreate = lazy(() => import("@/pages/PostCreate"));
+const PostDetail = lazy(() => import("@/pages/PostDetail"));
+const PostEdit = lazy(() => import("@/pages/PostEdit"));
+const Charts = lazy(() => import("@/pages/Charts"));
 
 function PrivateRoute({ children }: { children: ReactNode }) {
   const { isAuthenticated } = useAuth();
@@ -23,7 +29,9 @@ function App() {
             path="/posts"
             element={
               <PrivateRoute>
-                <PostList />
+                <Suspense fallback={<LoadingSpinner />}>
+                  <PostList />
+                </Suspense>
               </PrivateRoute>
             }
           />
@@ -31,7 +39,9 @@ function App() {
             path="/posts/create"
             element={
               <PrivateRoute>
-                <PostCreate />
+                <Suspense fallback={<LoadingSpinner />}>
+                  <PostCreate />
+                </Suspense>
               </PrivateRoute>
             }
           />
@@ -39,7 +49,9 @@ function App() {
             path="/posts/:id"
             element={
               <PrivateRoute>
-                <PostDetail />
+                <Suspense fallback={<LoadingSpinner />}>
+                  <PostDetail />
+                </Suspense>
               </PrivateRoute>
             }
           />
@@ -47,7 +59,9 @@ function App() {
             path="/posts/:id/edit"
             element={
               <PrivateRoute>
-                <PostEdit />
+                <Suspense fallback={<LoadingSpinner />}>
+                  <PostEdit />
+                </Suspense>
               </PrivateRoute>
             }
           />
@@ -55,7 +69,9 @@ function App() {
             path="/charts"
             element={
               <PrivateRoute>
-                <Charts />
+                <Suspense fallback={<LoadingSpinner />}>
+                  <Charts />
+                </Suspense>
               </PrivateRoute>
             }
           />
