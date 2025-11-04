@@ -8,7 +8,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import type { CoffeeBrand } from "../../services/mockService";
+import type { CoffeeBrand } from "@/models/Chart";
 
 interface Props {
   data: CoffeeBrand[];

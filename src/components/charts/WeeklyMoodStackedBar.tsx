@@ -8,7 +8,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import type { WeeklyMood } from "../../services/mockService";
+import type { WeeklyMood } from "@/models/Chart";
 
 interface Props {
   data: WeeklyMood[];

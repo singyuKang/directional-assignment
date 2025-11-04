@@ -67,6 +67,13 @@ export function usePostForm({ mode }: UsePostFormOptions) {
       return;
     }
 
+    // 금칙어 검사 추가
+    const forbiddenWord = getForbiddenWord(trimmedTag);
+    if (forbiddenWord) {
+      setError(`태그에 금칙어("${forbiddenWord}")가 포함되어 있습니다.`);
+      return;
+    }
+
     setTags([...tags, trimmedTag]);
     setTagInput("");
     setError("");
@@ -111,6 +118,14 @@ export function usePostForm({ mode }: UsePostFormOptions) {
     const forbiddenInBody = getForbiddenWord(body);
     if (forbiddenInBody) {
       return `본문에 금칙어("${forbiddenInBody}")가 포함되어 있습니다.`;
+    }
+
+    // 태그에 금칙어 검사 추가
+    for (const tag of tags) {
+      const forbiddenInTag = getForbiddenWord(tag);
+      if (forbiddenInTag) {
+        return `태그에 금칙어("${forbiddenInTag}")가 포함되어 있습니다.`;
+      }
     }
 
     return null;

@@ -7,7 +7,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import type { PieLabelRenderProps } from "recharts";
-import type { CoffeeBrand } from "../../services/mockService";
+import type { CoffeeBrand } from "@/models/Chart";
 
 interface Props {
   data: CoffeeBrand[];
@@ -51,7 +51,7 @@ export default function CoffeeBrandPieChart({ data }: Props) {
           nameKey="brand" // Legend에 brand를 표시
           label={renderLabel}
         >
-          {chartData.map((entry, index) => (
+          {chartData.map((_, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>

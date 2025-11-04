@@ -9,7 +9,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import type { CoffeeConsumption } from "../../services/mockService";
+import type { CoffeeConsumption } from "@/models/Chart";
 
 interface Props {
   data: CoffeeConsumption[];
